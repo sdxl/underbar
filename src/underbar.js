@@ -103,7 +103,11 @@
     
     _.each(final, function(x){
       if (x==testValue){
-        counter++;
+        counter++
+      // for efficiency, I tried to optimize this by writing:
+      // counter=1;
+      // break;
+      // but the tests all fail when this is saved
       }
     })
     
