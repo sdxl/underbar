@@ -78,6 +78,13 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var final = [];
+    _.each(collection, function(x){
+      if (test(x)){
+        final.push(x);
+      }
+    })
+    return final;
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -96,6 +103,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var final = [];
+    _.each(collection, function(x){
+      final.push(iterator(x));
+    });
+    return final;
   };
 
   /*
