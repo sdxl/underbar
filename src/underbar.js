@@ -91,6 +91,7 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    return _.filter(collection, function(x){return !test(x)})
   };
 
   // Produce a duplicate-free version of the array.
@@ -171,6 +172,12 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var interValue = accumulator
+
+    _.each(collection, function(x){return interValue = iterator(interValue, x)
+    })
+
+    return interValue;
   };
 
   // Determine if the array or object contains a given value (using `===`).
