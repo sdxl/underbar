@@ -50,7 +50,7 @@
     if (Array.isArray(collection)){
       for (var i = 0; i < collection.length; i++) {
         iterator(collection[i], i, collection); 
-      };
+      }
     }
     else {
       for (var property in collection){
@@ -105,10 +105,6 @@
     _.each(final, function(x){
       if (x==testValue){
         counter++
-      // for efficiency, I tried to optimize this by writing:
-      // counter=1;
-      // break;
-      // but the tests all fail when this is saved
       }
     })
     
@@ -172,12 +168,32 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    var interValue = accumulator
+    var accumulator, collection;
+    if (arguments.length ===3){
+      accumulator=accumulator;
+      collection=collection;
+    }
+    else{
+      //Array case w/o given accumulator
 
-    _.each(collection, function(x){return interValue = iterator(interValue, x)
-    })
-
-    return interValue;
+      if(collection.length!=undefined){
+      accumulator = collection[0];
+      collection = collection.slice(1);
+      }
+      
+      //Object case w/o given accumulator
+      //Will change the collection given to _.each to an array
+      else{
+        accumulator = collection[Object.keys(collection)[0]];
+        var newCollection =[];
+        for(var key in collection)
+          {newCollection.push(collection[key])}
+        collection = newCollection.slice(1);
+      }
+    }
+      _.each(collection, function(x){return accumulator = iterator(accumulator, x)
+      });
+      return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
