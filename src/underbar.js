@@ -176,7 +176,7 @@
     else{
       //Array case w/o given accumulator
 
-      if(collection.length!=undefined){
+      if(Array.isArray(collection)){
       accumulator = collection[0];
       collection = collection.slice(1);
       }
