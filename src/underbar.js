@@ -98,20 +98,9 @@
   _.uniq = function(array) {
     var final = [];
     _.each(array, function(x){
-    
-      var testValue = x;
-      var counter = 0;
-    
-    _.each(final, function(x){
-      if (x==testValue){
-        counter++
+      if(_.indexOf(final, x) === -1){
+        final.push(x)
       }
-    })
-    
-    if (counter==0){
-      final.push(testValue);
-    }
-
     })
     return final; 
   };
