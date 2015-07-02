@@ -250,22 +250,35 @@
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
     var args = Array.prototype.slice.call(arguments);
-    var final = args[0]
-    var args = args.slice(1)
+    var final = args[0];
+    var args = args.slice(1);
 
     _.each(args, function(x){
           _.each(x, function(value, key){
-            final[key] = value
+            final[key] = value;
           })        
       })
 
-      return final 
+      return final ;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+      var args = Array.prototype.slice.call(arguments);
+      var final = args[0];
+      var args = args.slice(1);
 
+      _.each(args, function(x){
+        _.each(x, function(value, key){
+
+            if(final.hasOwnProperty(key) === false){
+
+            final[key] = value;
+            }
+        })
+      })
+      return final;
   };
 
 
@@ -308,7 +321,11 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  _.memoize = function(func) {
+  _.memoize = function(func) { 
+
+    //_.memoize(function(x){return})
+   
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -318,7 +335,8 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-  };
+      
+    };
 
 
   /**
@@ -332,6 +350,17 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+        var final = [];
+
+        while(final.length < array.length){
+              var randIndex = Math.floor(Math.random() * array.length);
+              var randItem = array[randIndex];
+              if (_.indexOf(final, randItem) == -1){
+                final.push(randItem);
+              }
+
+        }
+        return final;
   };
 
 
@@ -353,6 +382,7 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -361,6 +391,18 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+        var final = [];
+        var args = Array.prototype.slice.call(arguments);
+
+        for(var i=0; i<args.length; i++){
+            var toPush = []
+          _.each(args, function(x){
+            toPush.push(x[i])
+          })
+              final.push(toPush)
+        }
+
+          return final;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
@@ -368,6 +410,7 @@
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+   
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
