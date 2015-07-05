@@ -350,12 +350,13 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-        
-        
         var args = Array.prototype.slice.call(arguments);
         var args = args.slice(2);
+        
+        return setTimeout(function(){
+        
         return func.apply(this, args);
-    
+        }, wait)
     
   };
 
@@ -414,7 +415,7 @@
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
-    
+
   };
 
   // Zip together two or more arrays with elements of the same index
