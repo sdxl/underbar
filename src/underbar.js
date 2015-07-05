@@ -323,7 +323,22 @@
   // instead if possible.
   _.memoize = function(func) { 
 
-    //_.memoize(function(x){return})
+      var args = {};
+
+      return function(){
+
+          if (arguments[0] in args){
+            return args[arguments[0]]
+          }
+          else{
+            var key = arguments[0];
+            var result = func.apply(this, arguments);
+
+            args[key] = result;
+
+            return result
+          }
+      }
    
 
   };
@@ -335,8 +350,14 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
-      
-    };
+        
+        
+        var args = Array.prototype.slice.call(arguments);
+        var args = args.slice(2);
+        return func.apply(this, args);
+    
+    
+  };
 
 
   /**
@@ -358,6 +379,17 @@
               if (_.indexOf(final, randItem) == -1){
                 final.push(randItem);
               }
+
+        var matches = 0
+            for(var i=0; i<final.length; i++){
+                if(final[i] === array[i]){
+                  matches++
+                }
+            }
+
+          if (matches == final.length){
+            final = [];
+          }
 
         }
         return final;
