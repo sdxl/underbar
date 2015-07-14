@@ -443,12 +443,36 @@
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
-   
+      var finalArr = [];
+//[1,[2], [3]]
+      
+      function flattener(arr){
+
+          _.each(arr, function(x){
+            if (!Array.isArray(x)){
+              finalArr.push(x)
+            }
+            else{
+              flattener(x);
+            }
+
+        })
+          return finalArr
+      }
+
+      return flattener(nestedArray)
+
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+      var args = Array.prototype.slice.call(arguments)
+      
+
+      var finalresult = []
+
+
   };
 
   // Take the difference between one array and a number of other arrays.
